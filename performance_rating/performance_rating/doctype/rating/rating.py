@@ -8,6 +8,7 @@ from frappe.model.document import Document
 class Rating(Document):
 	def validate(self):
 		if self.is_active:
+			# Keep only one active rating per doctype/status combination.
 			if self.status:
 				frappe.db.sql(
 					"""

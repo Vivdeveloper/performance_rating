@@ -10,19 +10,47 @@ const RATING_DOC_CONFIG = {
 
 const current_doctype = cur_frm && cur_frm.doctype;
 if (current_doctype && RATING_DOC_CONFIG[current_doctype]) {
-	frappe.ui.form.on(current_doctype, {
+	const config = RATING_DOC_CONFIG[current_doctype];
+	const handlers = {
 		refresh(frm) {
+			maybe_prompt_for_rating(frm);
+		},
+		workflow_state(frm) {
+			// Allow re-prompting after workflow state changes.
+			frm.__rating_prompted_for = null;
 			maybe_prompt_for_rating(frm);
 		},
 		status(frm) {
 			maybe_prompt_for_rating(frm);
 		},
+		after_workflow_action(frm) {
+			// Workflow transitions refresh the doc; reset the prompt guard.
+			frm.__rating_prompted_for = null;
+			maybe_prompt_for_rating(frm);
+		},
+	};
+
+	if (config.party_field && config.party_field !== "name") {
+		handlers[config.party_field] = (frm) => {
+			// Trigger the prompt after the party is selected on new docs.
+			maybe_prompt_for_rating(frm);
+		};
+	}
+
+	frappe.ui.form.on(current_doctype, {
+		...handlers,
 	});
 }
 
 function maybe_prompt_for_rating(frm) {
 	const config = RATING_DOC_CONFIG[frm.doctype];
 	if (!config) {
+		return;
+	}
+	if (frm.is_new && frm.is_new()) {
+		return;
+	}
+	if (frm.__rating_prompt_pending_for === frm.doc.name) {
 		return;
 	}
 	if (frm.__rating_prompted_for === frm.doc.name) {
@@ -35,19 +63,18 @@ function maybe_prompt_for_rating(frm) {
 		return;
 	}
 
+	frm.__rating_prompt_pending_for = frm.doc.name;
 	frappe.call({
 		method: "performance_rating.performance_rating.doctype.rating_log.rating_log.get_rating_setup",
 		args: {
 			reference_doctype: frm.doctype,
 			reference_name: frm.doc.name,
 			party_from: config.party_from,
-			status: frm.doc.status,
+			status: get_status_value(frm),
 		},
 		callback: (r) => {
+			frm.__rating_prompt_pending_for = null;
 			const message = r.message || {};
-			if (message.rating_log) {
-				return;
-			}
 			const ratingItems = message.rating_items || [];
 			const logItems = message.log_items || [];
 			if (!ratingItems.length && !logItems.length) {
@@ -74,7 +101,24 @@ function maybe_prompt_for_rating(frm) {
 			frm.__rating_prompted_for = frm.doc.name;
 			show_rating_dialog(frm, rows, config, party_name);
 		},
+		error: () => {
+			frm.__rating_prompt_pending_for = null;
+		},
 	});
+}
+
+function get_status_value(frm) {
+	const workflow_field = frappe.workflow.get_state_fieldname(frm.doctype);
+	if (workflow_field && frm.doc[workflow_field]) {
+		// Use workflow state when the doctype defines a workflow field.
+		return frm.doc[workflow_field];
+	}
+	if (frm.doc.workflow_state) {
+		// Fallback for doctypes that use the default workflow_state field.
+		return frm.doc.workflow_state;
+	}
+	// Default to standard status when no workflow state is available.
+	return frm.doc.status;
 }
 
 function show_rating_dialog(frm, rows, config, party_name) {

@@ -28,6 +28,7 @@ frappe.ui.form.on("Rating Log", {
 });
 
 function set_reference_doctype_options(frm) {
+	// Limit reference doctypes based on the selected party source.
 	const options_by_party = {
 		Supplier: ["Purchase Order", "Purchase Receipt", "Purchase Invoice"],
 		Customer: ["Sales Order", "Delivery Note", "Sales Invoice"],
@@ -47,6 +48,7 @@ function set_reference_name_query(frm) {
 		return;
 	}
 
+	// Map each reference doctype to the party field it should match.
 	const party_field_by_doctype = {
 		"Purchase Order": "supplier",
 		"Purchase Receipt": "supplier",

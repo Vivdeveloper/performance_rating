@@ -10,6 +10,7 @@ class RatingLog(Document):
 		self.update_party_average_rating()
 
 	def update_party_average_rating(self):
+		# Update the party's custom average rating from this log's items.
 		if not self.party_from or not self.party_name:
 			return
 		if self.party_from not in {"Supplier", "Customer", "Employee"}:
@@ -35,6 +36,7 @@ class RatingLog(Document):
 
 
 def delete_rating_logs_for_reference(doc, method=None):
+	# delete logs when the referenced document is removed.
 	reference_doctype = doc.doctype
 	reference_name = doc.name
 	log_names = frappe.get_all(

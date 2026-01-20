@@ -37,7 +37,8 @@
    "fieldname": "ratings",
    "fieldtype": "Table",
    "label": "Ratings",
-   "options": "Rating Item"
+   "options": "Rating Item",
+   "reqd": 1
   },
   {
    "fieldname": "doctype_type",
@@ -45,13 +46,15 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Doctype Type",
-   "options": "DocType"
+   "options": "DocType",
+   "reqd": 1
   },
   {
    "fieldname": "status",
    "fieldtype": "Select",
    "in_list_view": 1,
-   "label": "Status"
+   "label": "Status",
+   "reqd": 1
   },
   {
    "default": "0",
@@ -65,13 +68,14 @@
    "fieldname": "rating_name",
    "fieldtype": "Data",
    "label": "Rating Name",
+   "reqd": 1,
    "unique": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-01-20 11:36:32.681681",
+ "modified": "2026-01-20 22:31:20.676513",
  "modified_by": "Administrator",
  "module": "Performance Rating",
  "name": "Rating",
