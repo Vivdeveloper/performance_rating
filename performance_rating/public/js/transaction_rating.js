@@ -5,27 +5,19 @@ const RATING_DOC_CONFIG = {
 	"Sales Order": { party_from: "Customer", party_field: "customer" },
 	"Delivery Note": { party_from: "Customer", party_field: "customer" },
 	"Sales Invoice": { party_from: "Customer", party_field: "customer" },
-	Employee: { party_from: "Employee", party_field: "name" },
 };
 
 const current_doctype = cur_frm && cur_frm.doctype;
 if (current_doctype && RATING_DOC_CONFIG[current_doctype]) {
 	const config = RATING_DOC_CONFIG[current_doctype];
 	const handlers = {
-		refresh(frm) {
-			maybe_prompt_for_rating(frm);
+		onload(frm) {
+			queue_rating_prompt(frm);
 		},
-		workflow_state(frm) {
-			// Allow re-prompting after workflow state changes.
-			frm.__rating_prompted_for = null;
-			maybe_prompt_for_rating(frm);
+		refresh(frm) {
+			queue_rating_prompt(frm);
 		},
 		status(frm) {
-			maybe_prompt_for_rating(frm);
-		},
-		after_workflow_action(frm) {
-			// Workflow transitions refresh the doc; reset the prompt guard.
-			frm.__rating_prompted_for = null;
 			maybe_prompt_for_rating(frm);
 		},
 	};
@@ -39,6 +31,18 @@ if (current_doctype && RATING_DOC_CONFIG[current_doctype]) {
 
 	frappe.ui.form.on(current_doctype, {
 		...handlers,
+	});
+}
+
+function queue_rating_prompt(frm) {
+	// Wait for form data to finish loading before prompting.
+	frappe.after_ajax(() => {
+		if (frm.__rating_last_docname !== frm.doc.name) {
+			frm.__rating_prompted_for = null;
+			frm.__rating_prompt_pending_for = null;
+			frm.__rating_last_docname = frm.doc.name;
+		}
+		maybe_prompt_for_rating(frm);
 	});
 }
 
@@ -108,16 +112,7 @@ function maybe_prompt_for_rating(frm) {
 }
 
 function get_status_value(frm) {
-	const workflow_field = frappe.workflow.get_state_fieldname(frm.doctype);
-	if (workflow_field && frm.doc[workflow_field]) {
-		// Use workflow state when the doctype defines a workflow field.
-		return frm.doc[workflow_field];
-	}
-	if (frm.doc.workflow_state) {
-		// Fallback for doctypes that use the default workflow_state field.
-		return frm.doc.workflow_state;
-	}
-	// Default to standard status when no workflow state is available.
+	// Always rely on the standard status field for rating matching.
 	return frm.doc.status;
 }
 

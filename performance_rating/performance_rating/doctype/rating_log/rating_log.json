@@ -22,7 +22,7 @@
    "in_standard_filter": 1,
    "label": "Party From",
    "no_copy": 1,
-   "options": "Supplier\nCustomer\nEmployee",
+   "options": "Supplier\nCustomer",
    "reqd": 1,
    "set_only_once": 1
   },

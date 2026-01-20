@@ -51,7 +51,6 @@ doctype_js = {
 	"Sales Order": "public/js/transaction_rating.js",
 	"Delivery Note": "public/js/transaction_rating.js",
 	"Sales Invoice": "public/js/transaction_rating.js",
-	"Employee": "public/js/transaction_rating.js",
 }
 
 doc_events = {
@@ -77,9 +76,6 @@ doc_events = {
 	},
 	"Sales Invoice": {
 		"on_cancel": "performance_rating.performance_rating.doctype.rating_log.rating_log.delete_rating_logs_for_reference",
-		"on_trash": "performance_rating.performance_rating.doctype.rating_log.rating_log.delete_rating_logs_for_reference",
-	},
-	"Employee": {
 		"on_trash": "performance_rating.performance_rating.doctype.rating_log.rating_log.delete_rating_logs_for_reference",
 	},
 }

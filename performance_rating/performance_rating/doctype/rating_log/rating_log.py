@@ -13,7 +13,7 @@ class RatingLog(Document):
 		# Update the party's custom average rating from this log's items.
 		if not self.party_from or not self.party_name:
 			return
-		if self.party_from not in {"Supplier", "Customer", "Employee"}:
+		if self.party_from not in {"Supplier", "Customer"}:
 			return
 
 		meta = frappe.get_meta(self.party_from)

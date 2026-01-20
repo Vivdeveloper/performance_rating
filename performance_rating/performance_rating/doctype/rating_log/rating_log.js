@@ -16,10 +16,6 @@ frappe.ui.form.on("Rating Log", {
 	},
 	party_name(frm) {
 		set_reference_name_query(frm);
-		if (frm.doc.party_from === "Employee" && frm.doc.party_name) {
-			frm.set_value("reference_doctype", "Employee");
-			frm.set_value("reference_name", frm.doc.party_name);
-		}
 	},
 	reference_doctype(frm) {
 		frm.set_value("reference_name", "");
@@ -32,7 +28,6 @@ function set_reference_doctype_options(frm) {
 	const options_by_party = {
 		Supplier: ["Purchase Order", "Purchase Receipt", "Purchase Invoice"],
 		Customer: ["Sales Order", "Delivery Note", "Sales Invoice"],
-		Employee: ["Employee"],
 	};
 	const options = options_by_party[frm.doc.party_from] || [];
 	frm.set_df_property("reference_doctype", "options", options.join("\n"));
@@ -56,7 +51,6 @@ function set_reference_name_query(frm) {
 		"Sales Order": "customer",
 		"Delivery Note": "customer",
 		"Sales Invoice": "customer",
-		Employee: "name",
 	};
 
 	const party_field = party_field_by_doctype[reference_doctype];
