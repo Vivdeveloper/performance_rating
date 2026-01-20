@@ -1,0 +1,99 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:rating_name",
+ "creation": "2026-01-20 10:20:42.748926",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_6pep",
+  "column_break_tukd",
+  "rating_name",
+  "doctype_type",
+  "status",
+  "column_break_cvjn",
+  "is_active",
+  "section_break_ciat",
+  "ratings"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_6pep",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_tukd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_cvjn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_ciat",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "ratings",
+   "fieldtype": "Table",
+   "label": "Ratings",
+   "options": "Rating Item"
+  },
+  {
+   "fieldname": "doctype_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Doctype Type",
+   "options": "DocType"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Is Active"
+  },
+  {
+   "fieldname": "rating_name",
+   "fieldtype": "Data",
+   "label": "Rating Name",
+   "unique": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-01-20 11:36:32.681681",
+ "modified_by": "Administrator",
+ "module": "Performance Rating",
+ "name": "Rating",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

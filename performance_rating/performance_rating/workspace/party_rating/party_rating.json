@@ -1,0 +1,69 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"ZIoCk1pH2b\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Party Rating</span>\",\"col\":12}},{\"id\":\"ouM5qZpUYP\",\"type\":\"card\",\"data\":{\"card_name\":\"Setup\",\"col\":4}}]",
+ "creation": "2026-01-20 11:34:25.902649",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "star",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Party Rating",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Setup",
+   "link_count": 3,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Rating",
+   "link_count": 0,
+   "link_to": "Rating",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Rating Parameter",
+   "link_count": 0,
+   "link_to": "Rating Parameter",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Rating Log",
+   "link_count": 0,
+   "link_to": "Rating Log",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-01-20 21:48:54.857178",
+ "modified_by": "Administrator",
+ "module": "Performance Rating",
+ "name": "Party Rating",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 28.0,
+ "shortcuts": [],
+ "title": "Party Rating"
+}

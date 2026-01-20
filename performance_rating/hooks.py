@@ -44,6 +44,45 @@ app_license = "mit"
 
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}
+doctype_js = {
+	"Purchase Order": "public/js/transaction_rating.js",
+	"Purchase Receipt": "public/js/transaction_rating.js",
+	"Purchase Invoice": "public/js/transaction_rating.js",
+	"Sales Order": "public/js/transaction_rating.js",
+	"Delivery Note": "public/js/transaction_rating.js",
+	"Sales Invoice": "public/js/transaction_rating.js",
+	"Employee": "public/js/transaction_rating.js",
+}
+
+doc_events = {
+	"Purchase Order": {
+		"on_cancel": "performance_rating.performance_rating.doctype.rating_log.rating_log.delete_rating_logs_for_reference",
+		"on_trash": "performance_rating.performance_rating.doctype.rating_log.rating_log.delete_rating_logs_for_reference",
+	},
+	"Purchase Receipt": {
+		"on_cancel": "performance_rating.performance_rating.doctype.rating_log.rating_log.delete_rating_logs_for_reference",
+		"on_trash": "performance_rating.performance_rating.doctype.rating_log.rating_log.delete_rating_logs_for_reference",
+	},
+	"Purchase Invoice": {
+		"on_cancel": "performance_rating.performance_rating.doctype.rating_log.rating_log.delete_rating_logs_for_reference",
+		"on_trash": "performance_rating.performance_rating.doctype.rating_log.rating_log.delete_rating_logs_for_reference",
+	},
+	"Sales Order": {
+		"on_cancel": "performance_rating.performance_rating.doctype.rating_log.rating_log.delete_rating_logs_for_reference",
+		"on_trash": "performance_rating.performance_rating.doctype.rating_log.rating_log.delete_rating_logs_for_reference",
+	},
+	"Delivery Note": {
+		"on_cancel": "performance_rating.performance_rating.doctype.rating_log.rating_log.delete_rating_logs_for_reference",
+		"on_trash": "performance_rating.performance_rating.doctype.rating_log.rating_log.delete_rating_logs_for_reference",
+	},
+	"Sales Invoice": {
+		"on_cancel": "performance_rating.performance_rating.doctype.rating_log.rating_log.delete_rating_logs_for_reference",
+		"on_trash": "performance_rating.performance_rating.doctype.rating_log.rating_log.delete_rating_logs_for_reference",
+	},
+	"Employee": {
+		"on_trash": "performance_rating.performance_rating.doctype.rating_log.rating_log.delete_rating_logs_for_reference",
+	},
+}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -83,7 +122,6 @@ app_license = "mit"
 # ------------
 
 # before_install = "performance_rating.install.before_install"
-# after_install = "performance_rating.install.after_install"
 
 # Uninstallation
 # ------------
@@ -246,4 +284,3 @@ app_license = "mit"
 # ------------
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
-
